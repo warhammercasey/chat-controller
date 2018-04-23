@@ -1,0 +1,14 @@
+{
+	"name": "chat-controller-bot",
+	"version": "1.0.0",
+	"description": "chat controller bot",
+	"main": "bot.js",
+	"author": "warhammercasey",
+	"scripts": {
+		"start": "node bot.js"
+	},
+	"dependencies": {
+		"discord.js": "^11.1.0",
+		"request": "^2.81.0"
+	}
+}
