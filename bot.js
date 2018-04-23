@@ -27,6 +27,7 @@ client.on('message', message => {
         }
     }
 });
+
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
         
