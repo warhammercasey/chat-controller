@@ -22,6 +22,7 @@ client.on('message', message => {
         for (i = 0; i < defaultChannels.length; i++){
             for (a = 0; a < defaultChannels[i].length; a++) {
                 console.log('defaultChannels: ' + defaultChannels[i][a])
+                if (!channels[i]) channels[i] = []
                 channels[i][a] = guild.channels.find("name", defaultChannels[i][a]);
                 console.log('channels: ' + channels[i][a]);
             }
