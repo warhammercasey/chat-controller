@@ -7,7 +7,7 @@ client.login(process.env.BOT_TOKEN);
 var firstMessage = true;
 var defaultChannels = [[]];
 
-var channels = [];
+var channels = [[]];
 var guild;
 
 client.on('ready', () => {
@@ -20,7 +20,6 @@ client.on('message', message => {
         firstMessage = false;
         guild = message.guild;
         console.log('channels: ' + channels[0][0]);
-        console.log('guild: ' + guild);
         for (i = 0; i < defaultChannels.length; i++){
             for (a = 0; a < defaultChannels[i].length; a++) {
                 channels[i][a] = guild.channels.find("name", defaultChannels[i][a]);
