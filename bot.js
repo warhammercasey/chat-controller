@@ -7,7 +7,7 @@ client.login(process.env.BOT_TOKEN);
 var firstMessage = true;
 var defaultChannels = [[]];
 
-var channels = [[]];
+var channels = [];
 var guild;
 
 client.on('ready', () => {
