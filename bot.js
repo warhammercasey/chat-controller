@@ -32,7 +32,16 @@ client.on('message', message => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
-        
+        var categoryChannels = newMember.voiceChannel.parent.children.toArray();
+        var emptyChannels = [];
+        for (i = 0; i < categoryChannels; i++) {
+            if (categoryChannels[i].members == null) {
+                emptyChannels.push(categoryChannels[i]);
+            }
+        }
+        if (emptyChannels.length == 0) {
+            categoryChannels[categoryChannels.length].clone(categoryChannels[categoryChannels.length].name.substring(0, categoryChannels[categoryChannels.length].name.lastIndexOf(" ")) + (parseInt(categoryChannels[categoryChannels.length].name.split().pop()) + 1).toString());
+        }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
         
     } else {
