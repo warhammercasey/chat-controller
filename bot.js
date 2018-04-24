@@ -35,8 +35,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         var categoryChannels = newMember.voiceChannel.parent.children.array();
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            console.log(categoryChannels[i].members.array());
-            if (categoryChannels[i].members.array().length == 0) {
+            if (categoryChannels[i].members.array() == null) {
                 emptyChannels.push(categoryChannels[i]);
                 console.log('Empty channel');
             }
