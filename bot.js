@@ -40,7 +40,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         if (emptyChannels.length == 0) {
-            categoryChannels[categoryChannels.length].clone(categoryChannels[categoryChannels.length].name.substring(0, categoryChannels[categoryChannels.length].name.lastIndexOf(" ")) + (parseInt(categoryChannels[categoryChannels.length].name.split().pop()) + 1).toString());
+            categoryChannels[categoryChannels.length-1].clone(categoryChannels[categoryChannels.length-1].name.substring(0, categoryChannels[categoryChannels.length-1].name.lastIndexOf(" ")) + (parseInt(categoryChannels[categoryChannels.length-1].name.split().pop()) + 1).toString());
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
         
