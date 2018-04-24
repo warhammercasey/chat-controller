@@ -39,11 +39,12 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         for (i = 0; i < categoryChannels.array().length; i++) {
             if (categoryChannels.array()[i].members.array()[0] == undefined) {
                 emptyChannels.push(categoryChannels.array()[i]);
-                console.log('Empty channel');
             }
         }
         if (emptyChannels.length == 0) {
-            categoryChannels.array()[categoryChannels.array().length-1].clone(categoryChannels.array()[categoryChannels.array().length-1].name.substring(0, categoryChannels.array()[categoryChannels.array().length-1].name.lastIndexOf(" ")) + (parseInt(categoryChannels.array()[categoryChannels.array().length-1].name.split().pop()) + 1).toString()).then(clone => clone.setParent(categoryChannels.array()[categoryChannels.array().length-1].parent));
+            var cloned;
+            categoryChannels.array()[categoryChannels.array().length - 1].clone(categoryChannels.array()[categoryChannels.array().length - 1].name.substring(0, categoryChannels.array()[categoryChannels.array().length - 1].name.lastIndexOf(" ")) + (parseInt(categoryChannels.array()[categoryChannels.array().length - 1].name.split(" ").pop()) + 1).toString()).then(clone => cloned = clone);
+            cloned.setParent(categoryChannels.array()[categoryChannels.array().length - 1].parent);
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
         
