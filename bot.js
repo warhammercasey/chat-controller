@@ -35,10 +35,10 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         var categoryChannels = newMember.voiceChannel.parent.children;
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.array().length; i++) {
-            console.log(categoryChannels);
-            console.log('array: ' + categoryChannels[i].members.array()[0].toString());
-            if (categoryChannels[i].members.array()[0].toString() == '') {
-                emptyChannels.push(categoryChannels[i]);
+            console.log(categoryChannels.array());
+            console.log('array: ' + categoryChannels.array()[i].members.array()[0].toString());
+            if (categoryChannels.array()[i].members.array()[0].toString() == '') {
+                emptyChannels.push(categoryChannels.array()[i]);
                 console.log('Empty channel');
             }
         }
