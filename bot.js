@@ -41,7 +41,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         if (emptyChannels.length == 0) {
-            categoryChannels[categoryChannels.length-1].clone(categoryChannels[categoryChannels.length-1].name.substring(0, categoryChannels[categoryChannels.length-1].name.lastIndexOf(" ")) + (parseInt(categoryChannels[categoryChannels.length-1].name.split().pop()) + 1).toString()).then(clone => clone.setParent(categoryChannels[categoryChannels.length-1].parent));
+            categoryChannels.array()[categoryChannels.array().length-1].clone(categoryChannels.array()[categoryChannels.array().length-1].name.substring(0, categoryChannels.array()[categoryChannels.array().length-1].name.lastIndexOf(" ")) + (parseInt(categoryChannels.array()[categoryChannels.array().length-1].name.split().pop()) + 1).toString()).then(clone => clone.setParent(categoryChannels.array()[categoryChannels.array().length-1].parent));
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
         
