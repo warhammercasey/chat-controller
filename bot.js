@@ -42,13 +42,13 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         if (emptyChannels.length == 0) {
-            var clonedChannel;
             var permissions = categoryChannels[0].permissionOverwrites.array();
-            categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => clonedChannel = clone);
-            clonedChannel.setParent(categoryChannels[categoryChannels.length - 1].parent);
-            for (i = 0; i < permissions.length; i++) {
-                clonedChannel.overwritePermissions(permissions[i].id, permissions[i]);
-            }
+            categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
+                clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
+                for (i = 0; i < permissions.length; i++) {
+                    clone.overwritePermissions(permissions[i].id, permissions[i]);
+                }
+            });
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
         categoryChannels = oldMember.voiceChannel.parent.children.array();
