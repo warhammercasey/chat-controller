@@ -63,7 +63,9 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                 emptyChannels[emptyChannels.length - i].delete();
             }
             for (i = 0; i < categoryChannels.length; i++) {
-
+                if (parseInt(categoryChannels[i].name.split().pop()) != i + 1) {
+                    categoryChannels[i].setName(categoryChannels[i].name.substring(categoryChannels[i].name.lastIndexOf(' ')) + ' ' + (parseInt(categoryChannels[i].name.split(" ").pop()) + 1).toString());
+                }
             }
         }
     } else {
