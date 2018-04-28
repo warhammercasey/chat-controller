@@ -60,10 +60,8 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         if (emptyChannels.length > 1) {
-            console.log('run1');
             for (i = 0; i < emptyChannels.length - 1; i++) {
-                console.log('run2');
-                emptyChannels[emptyChannels.length - i].delete();
+                emptyChannels[emptyChannels.length - i - 1].delete();
             }
             for (i = 0; i < categoryChannels.length; i++) {
                 if (parseInt(categoryChannels[i].name.split().pop()) != i + 1) {
