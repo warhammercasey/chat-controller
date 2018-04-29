@@ -33,25 +33,20 @@ client.on('message', message => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
-        var categoryChannels = [];
-        for (i = 0; i < newMember.guild.channels.array().length; i++) {
-            if (newMember.guild.channels.array()[i].parent == newMember.voiceChannel.parent) {
-                categoryChannels[categoryChannels.length] = newMember.guild.channels.array()[i];
-            }
-        }
+        var categoryChannels = newMember.voiceChannel.parent.children;
         var emptyChannels = [];
-        console.log(categoryChannels.length);
-        for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members.array()[0] == undefined) {
-                emptyChannels.push(categoryChannels[i]);
+        console.log(categoryChannels.array().length);
+        for (i = 0; i < categoryChannels.array().length; i++) {
+            if (categoryChannels.array()[i].members.array()[0] == undefined) {
+                emptyChannels.push(categoryChannels.array()[i]);
             }
         }
         console.log(emptyChannels.length);
         if (emptyChannels.length == 0) {
-            var permissions = categoryChannels[0].permissionOverwrites.array();
-            categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
-                clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
-                clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
+            var permissions = categoryChannels.array()[0].permissionOverwrites.array();
+            categoryChannels.array()[categoryChannels.array().length - 1].clone(categoryChannels.array()[categoryChannels.array().length - 1].name.substring(0, categoryChannels.array()[categoryChannels.array().length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels.array()[categoryChannels.array().length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
+                clone.setParent(categoryChannels.array()[categoryChannels.array().length - 1].parent);
+                clone.setUserLimit(categoryChannels.array()[categoryChannels.array().length - 1].userLimit);
                 for (i = 0; i < permissions.length; i++) {
                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                 }
