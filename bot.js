@@ -37,10 +37,13 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         categoryChannels = newMember.voiceChannel.parent.children.array();
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
+            console.log('run1');
             if (categoryChannels[i].members.array()[0] == undefined) {
+                console.log('run2');
                 emptyChannels.push(categoryChannels[i]);
             }
         }
+        console.log(emptyChannels.length);
         if (emptyChannels.length == 0) {
             var permissions = categoryChannels[0].permissionOverwrites.array();
             categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
