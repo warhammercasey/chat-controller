@@ -40,7 +40,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         for (i = 0; i < newMember.guild.channels.array().length; i++) {
-            if (newMember.guild.channels.array()[i].parent.name == parent) {
+            if (newMember.guild.channels.array()[i].parent != null && newMember.guild.channels.array()[i].parent.name == parent) {
                 categoryChannels.push(newMember.guild.channels.array()[i]);
             }
         }
