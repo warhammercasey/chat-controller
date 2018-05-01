@@ -69,7 +69,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             });
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
-        categoryChannels = oldMember.voiceChannel.parent.children.array();
+        /*categoryChannels = oldMember.voiceChannel.parent.children.array();
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
             if (categoryChannels[i].members.array()[0] == undefined) {
@@ -85,7 +85,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                     categoryChannels[i].setName(categoryChannels[i].name.substring(categoryChannels[i].name.lastIndexOf(' ')) + ' ' + (parseInt(categoryChannels[i].name.split(" ").pop()) + 1).toString());
                 }
             }
-        }
+        }*/
     } else {
 
     }
