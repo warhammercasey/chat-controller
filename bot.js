@@ -33,7 +33,17 @@ client.on('message', message => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
-        var categoryChannels = newMember.voiceChannel.parent.children.array();
+        var categoryChannels; //= newMember.voiceChannel.parent.children.array();
+        for (i = 0; i < newMember.guild.channels.array().length; i++) {
+            if (newMember.guild.channels.array()[i].name == newMember.voiceChannel.name) {
+                var parent = newMember.guild.channels.array()[i].parent.name;
+            }
+        }
+        for (i = 0; i < newMember.guild.channels.array().length; i++) {
+            if (newMember.guild.channels.array()[i].parent.name == parent) {
+                categoryChannels.push(newMember.guild.channels.array()[i]);
+            }
+        }
         console.log(categoryChannels);
         var emptyChannels = [];
         console.log(categoryChannels.length);
