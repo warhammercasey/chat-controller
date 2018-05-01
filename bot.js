@@ -33,16 +33,20 @@ client.on('message', message => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
-        var categoryChannels = []; //= newMember.voiceChannel.parent.children.array();
-        for (i = 0; i < newMember.guild.channels.array().length; i++) {
-            if (newMember.guild.channels.array()[i].id == newMember.voiceChannel.id) {
-                var parent = newMember.guild.channels.array()[i].parentID;
-            }
-        }
-        for (i = 0; i < newMember.guild.channels.array().length; i++) {
-            if (newMember.guild.channels.array()[i].parent != null && newMember.guild.channels.array()[i].parentID == parent) {
-                categoryChannels.push(newMember.guild.channels.array()[i]);
-            }
+        var categoryChannels = newMember.voiceChannel.parent.children.array();
+        var userChannel;
+        if (newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString()) == null) {
+            categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
+                clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
+                clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
+                for (i = 0; i < permissions.length; i++) {
+                    clone.overwritePermissions(permissions[i].id, permissions[i]);
+                }
+            });
+            return;
+        } else if (newMember.voiceChannel.name.split(" ").pop() == '1') {
+            userChannel = newMember.guild.channels.find('name', newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(" ")) + ' ' + '2');
+            categoryChannels = userChannel.parent.children.array();
         }
         console.log(categoryChannels);
         var emptyChannels = [];
