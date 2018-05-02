@@ -77,7 +77,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         console.log(categoryChannels);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members.array()[0] == undefined) {
+            if (categoryChannels[i].members == undefined) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
