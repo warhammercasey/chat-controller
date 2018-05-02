@@ -46,7 +46,8 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             });
             return;
         } else if (newMember.voiceChannel.name.split(" ").pop() == '1') {
-            userChannel = newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString());
+            userChannel = newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + '2');
+            console.log(categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + '2');
             categoryChannels = userChannel.parent.children.array();
         }
         var emptyChannels = [];
@@ -73,7 +74,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
-        console.log(categoryChannels);
         if (emptyChannels.length > 1) {
             for (i = 1; i < emptyChannels.length; i++) {
                 if (emptyChannels[i].deletable) {
