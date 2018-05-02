@@ -47,7 +47,14 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             return;
         } else if (newMember.voiceChannel.name.split(" ").pop() == '1') {
             userChannel = newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + '2');
-            console.log(userChannel);
+            while (userChannel.parent == null) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds) {
+                        break;
+                    }
+                }
+            }
             categoryChannels = userChannel.parent.children.array();
         }
         var emptyChannels = [];
