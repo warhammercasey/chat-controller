@@ -67,7 +67,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             });
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
-        var categoryChannels; //= oldMember.voiceChannel.parent.children.array();
+        var categoryChannels = []; //= oldMember.voiceChannel.parent.children.array();
         for (i = 0; i < oldMember.guild.channels.array().length; i++) {
             if (oldMember.guild.channels.array()[i].parentID == oldMember.voiceChannel.parentID) {
                 categoryChannels.push(oldMember.guild.channels.array()[i]);
