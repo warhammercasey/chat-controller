@@ -67,12 +67,13 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             });
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
-        var categoryChannels = []; //= oldMember.voiceChannel.parent.children.array();
+        //var categoryChannels = []; //= oldMember.voiceChannel.parent.children.array();
         for (i = 0; i < oldMember.guild.channels.array().length; i++) {
-            if (oldMember.guild.channels.array()[i].parentID == oldMember.voiceChannel.parentID) {
-                categoryChannels.push(oldMember.guild.channels.array()[i]);
+            if (oldMember.guild.channels.array()[i].name.substring(0, oldMember.guild.channels.array()[i].name.lastIndexOf(" ")) == oldMember.voiceChannel.name.substring(0, oldMember.voiceChannel.name.lastIndexOf(' '))) {
+                oldMember.guild.channels.array()[i].parentID = oldMember.voiceChannel.parentID;
             }
         }
+        var categoryChannels = oldMember.voiceChannel.parent.children.array();
         console.log(categoryChannels);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
