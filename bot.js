@@ -39,8 +39,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             var permissions = categoryChannels[0].permissionOverwrites.array();
             categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
                 clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
-                //clone.parentID = categoryChannels[categoryChannels.length - 1].parentID;
-                //clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
                 newMember.guild.channels.find('id', clone.id).setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
                 for (i = 0; i < permissions.length; i++) {
                     clone.overwritePermissions(permissions[i].id, permissions[i]);
@@ -54,7 +52,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         }
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members.array()[0] == undefined) {
+            if (categoryChannels[i].members == undefined) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
