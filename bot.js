@@ -38,8 +38,10 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         if (newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString()) == null) {
             var permissions = categoryChannels[0].permissionOverwrites.array();
             categoryChannels[categoryChannels.length - 1].clone(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString()).then(clone => {
-                clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
-                clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
+                //clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
+                clone.parentID = categoryChannels[categoryChannels.length - 1].parentID;
+                //clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
+                clone.userLimit = categoryChannels[categoryChannels.length - 1].userLimit;
                 for (i = 0; i < permissions.length; i++) {
                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                 }
