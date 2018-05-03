@@ -4,31 +4,11 @@ const client = new Discord.Client();
 const config = require('./config');
 client.login(process.env.BOT_TOKEN);
 
-var firstMessage = true;
-var defaultChannels = [[]];
-
-var channels = [[]];
-var guild;
 
 client.on('ready', () => {
     console.log('Ready');
-    defaultChannels = config.channels.slice();
 });
 
-client.on('message', message => {
-    if (firstMessage) {
-        firstMessage = false;
-        guild = message.guild;
-        for (i = 0; i < defaultChannels.length; i++){
-            for (a = 0; a < defaultChannels[i].length; a++) {
-                console.log('defaultChannels: ' + defaultChannels[i][a])
-                if (!channels[i]) channels[i] = []
-                channels[i][a] = guild.channels.find("name", defaultChannels[i][a]);
-                console.log('channels: ' + channels[i][a]);
-            }
-        }
-    }
-});
 
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
@@ -100,7 +80,40 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 
     }*/
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
+        for(i = 0; i < config.channels.length; i++){
+            if(newMember.voiceChannel.name.substring(0, newMember.voiceChannelname.lastIndexOf(' ')) == config.channels[i]){
+                if(newMember.guild.channels.find('name', config.channels[i] + ' 10') == null){
+                    for (a = 1; a <= 10; a++) {
+                        if(newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null){
+                            newMember.voiceChannel.clone(config.channels[i] + ' ' + a.toString()).then(clone => {
+                                clone.setParent(newMember.voiceChannel.parent);
+                                clone.setUserLimit(newMember.voiceChannel.userLimit);
+                            });
+                        }
+                    }
+                }
+            }
+        }  
+
         console.log(newMember.voiceChannel.permissionOverwrites);
+        var categoryChannels = newMember.voiceChannel.parent.children.array();
+        var userChannel;
+        if (newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString()) == null) {
+            
+            return;
+        } else if (newMember.voiceChannel.name.split(" ").pop() == '1') {
+            
+        }
+        console.log(categoryChannels);
+        var emptyChannels = [];
+        for (i = 0; i < categoryChannels.length; i++) {
+            if (categoryChannels[i].members == undefined) {
+                emptyChannels.push(categoryChannels[i]);
+            }
+        }
+        if (emptyChannels.length == 0) {
+            
+        }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
 
     }
