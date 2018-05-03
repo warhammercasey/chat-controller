@@ -44,6 +44,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                 }
             });*/
+            console.log(categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString());
             var clone = newMember.guild.channels.find('name', categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString());
             clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
             clone.setUserLimit(categoryChannels[categoryChannels.length - 1].parent);
