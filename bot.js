@@ -50,6 +50,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             userChannel.parentID = categoryChannels[0].parentID;
             categoryChannels = userChannel.parent.children.array();
         }
+        console.log(categoryChannels);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
             if (categoryChannels[i].members == undefined) {
@@ -74,7 +75,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }
         }
         var categoryChannels = oldMember.voiceChannel.parent.children.array();
-        console.log(categoryChannels);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
             if (categoryChannels[i].members == undefined) {
