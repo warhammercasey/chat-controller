@@ -81,7 +81,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     }*/
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
         for(i = 0; i < config.channels.length; i++){
-            if(newMember.voiceChannel.name.substring(0, newMember.voiceChannelname.lastIndexOf(' ')) == config.channels[i]){
+            if(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) == config.channels[i]){
                 if(newMember.guild.channels.find('name', config.channels[i] + ' 10') == null){
                     for (a = 1; a <= 10; a++) {
                         if(newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null){
