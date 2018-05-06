@@ -106,13 +106,13 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             userChannel.parentID = categoryChannels[0].parentID;
             categoryChannels = userChannel.parent.children.array();
         }
-        console.log(newMember.guild.roles.find('name', '@everyone').permissions);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members == undefined && categoryChannels[i].permissionOverwrites.find('name', '@everyone')) {
+            if (categoryChannels[i].members == undefined && categoryChannels[i].permissionOverwrites.find('name', '@everyone').permissions.has({VIEW_CHANNEL: false})) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
+        console.log(emptyChannels);
         if (emptyChannels.length == 0) {
             
         }
