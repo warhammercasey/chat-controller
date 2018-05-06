@@ -112,7 +112,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
-        console.log(categoryChannels);
+        console.log(categoryChannels[2].permissionOverwrites);
         console.log(emptyChannels);
         if (emptyChannels.length == 0) {
             
