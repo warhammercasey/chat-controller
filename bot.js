@@ -112,6 +112,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
+        console.log(categoryChannels);
         console.log(emptyChannels);
         if (emptyChannels.length == 0) {
             
