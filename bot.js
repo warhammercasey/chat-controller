@@ -82,12 +82,19 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
         for(i = 0; i < config.channels.length; i++){
             if(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) == config.channels[i]){
-                if(newMember.guild.channels.find('name', config.channels[i] + ' 10') == null){
+                if (newMember.guild.channels.find('name', config.channels[i] + ' 10') == null) {
+                    var permissions = newMember.voiceChannel.permissionOverwrites.array();
                     for (a = 1; a <= 10; a++) {
                         if(newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null){
                             newMember.voiceChannel.clone(config.channels[i] + ' ' + a.toString()).then(clone => {
                                 clone.setParent(newMember.voiceChannel.parent);
                                 clone.setUserLimit(newMember.voiceChannel.userLimit);
+                                for (i = 0; i < permissions.length; i++) {
+                                    clone.overwritePermissions(permissions[i].id, permissions[i]);
+                                }
+                                for (i = 0; i < newMember.guild.roles.array().length; i++) {
+                                    clone.overwritePermissions(newMember.guild.roles.array()[i], { VIEW_CHANNEL: false });
+                                }
                             });
                         }
                     }
@@ -97,13 +104,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 
         console.log(newMember.voiceChannel.permissionOverwrites);
         var categoryChannels = newMember.voiceChannel.parent.children.array();
-        var userChannel;
-        if (newMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString()) == null) {
-            
-            return;
-        } else if (newMember.voiceChannel.name.split(" ").pop() == '1') {
-            
-        }
         console.log(categoryChannels);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
