@@ -108,11 +108,11 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         }
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members == undefined && categoryChannels[i].permissionOverwrites.find('name', '@everyone').has({VIEW_CHANNEL: false})) {
+            console.log(categoryChannels[i].permissionsFor(newMember).has({ VIEW_CHANNEL: false }));
+            if (categoryChannels[i].members == undefined && !categoryChannels[i].permissionsFor(newMember).has({VIEW_CHANNEL: false})) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
-        console.log(categoryChannels[2].permissionOverwrites);
         console.log(emptyChannels);
         if (emptyChannels.length == 0) {
             
