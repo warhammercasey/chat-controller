@@ -108,8 +108,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             userChannel.parentID = categoryChannels[0].parentID;
             categoryChannels = userChannel.parent.children.array();
         }
-        
-        console.log(categoryChannels);
+        console.log(newMember.guild.roles);
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
             if (categoryChannels[i].members == undefined) {
