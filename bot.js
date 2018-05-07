@@ -108,18 +108,8 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             categoryChannels = userChannel.parent.children.array();
         }
         var emptyChannels = [];
-        
-        var tempPermissions = newMember.voiceChannel.permissionOverwrites.find('role', everyoneRole);
-        console.log(tempPermissions);
-        var permissions = newMember.voiceChannel.permissionOverwrites.array();
-        newMember.voiceChannel.clone(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) + ' permissions').then(clone => {
-            for (i = 0; i < permissions.length; i++) {
-                clone.overwritePermissions(permissions[i].id, permissions[i]);
-            }
-            clone.overwritePermissions(everyoneRole, { VIEW_CHANNEL: false });
-        });
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members == undefined && newMember.guild.channels.find('name', newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) + ' permissions').permissionOverwrites == categoryChannels[i].permissionOverwrites) {
+            if (categoryChannels[i].members == undefined && newMember.voiceChannel.permissionOverwrites == categoryChannels[i].permissionOverwrites) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
