@@ -80,6 +80,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 
     }*/
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
+        var everyoneRole = newMember.guild.roles.find('name', '@everyone');
         for(i = 0; i < config.channels.length; i++){
             if(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) == config.channels[i]){
                 if (newMember.guild.channels.find('name', config.channels[i] + ' 10') == null) {
@@ -92,7 +93,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                                 for (i = 0; i < permissions.length; i++) {
                                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                                 }
-                                clone.overwritePermissions(newMember.guild.roles.find('name', '@everyone'), { VIEW_CHANNEL: false });
+                                clone.overwritePermissions(everyoneRole, { VIEW_CHANNEL: false });
                             });
                         }
                     }
@@ -107,9 +108,18 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             categoryChannels = userChannel.parent.children.array();
         }
         var emptyChannels = [];
+        
+        var tempPermissions = newMember.channel.permissionOverwrites.everyoneRole;
+        console.log(tempPermissions);
+        var permissions = newMember.voiceChannel.permissionOverwrites.array();
+        newMember.voiceChannel.clone(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) + ' permissions').then(clone => {
+            for (i = 0; i < permissions.length; i++) {
+                clone.overwritePermissions(permissions[i].id, permissions[i]);
+            }
+            clone.overwritePermissions(everyoneRole, { VIEW_CHANNEL: false });
+        });
         for (i = 0; i < categoryChannels.length; i++) {
-            console.log(categoryChannels[i].permissionOverwrites);
-            if (categoryChannels[i].members == undefined && !categoryChannels[i].permissionsFor(newMember).has({ VIEW_CHANNEL: false })) {
+            if (categoryChannels[i].members == undefined && newMember.guild.channels.find('name', newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) + ' permissions').permissionOverwrites == categoryChannels[i].permissionOverwrites) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
