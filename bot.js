@@ -80,20 +80,23 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 
     }*/
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
-        var everyoneRole = newMember.guild.roles.find('name', '@everyone');
         for(i = 0; i < config.channels.length; i++){
-            if(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) == config.channels[i]){
+            if (newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) == config.channels[i]) {
+                console.log('1');
                 if (newMember.guild.channels.find('name', config.channels[i] + ' 10') == null) {
+                    console.log('2');
                     var permissions = newMember.voiceChannel.permissionOverwrites.array();
                     for (a = 1; a <= 10; a++) {
-                        if(newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null){
+                        console.log('3');
+                        if (newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null) {
+                            console.log('4');
                             newMember.voiceChannel.clone(config.channels[i] + ' ' + a.toString()).then(clone => {
                                 clone.setParent(newMember.voiceChannel.parent);
                                 clone.setUserLimit(newMember.voiceChannel.userLimit);
                                 for (i = 0; i < permissions.length; i++) {
                                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                                 }
-                                clone.overwritePermissions(everyoneRole, { VIEW_CHANNEL: false });
+                                clone.overwritePermissions(newMember.guild.roles.find('name', '@everyone'), { VIEW_CHANNEL: false });
                             });
                         }
                     }
