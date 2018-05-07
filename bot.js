@@ -109,7 +109,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
             console.log(categoryChannels[i].permissionsFor(newMember).has({ VIEW_CHANNEL: false }));
-            if (categoryChannels[i].members == undefined && !categoryChannels[i].permissionsFor(newMember).has({VIEW_CHANNEL: false})) {
+            if (categoryChannels[i].members == undefined && !categoryChannels[i].permissionsFor(newMember).has({ VIEW_CHANNEL: false })) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
