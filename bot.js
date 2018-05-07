@@ -109,7 +109,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         }
         var emptyChannels = [];
         
-        var tempPermissions = newMember.voiceChannel.permissionOverwrites.get(everyoneRole);
+        var tempPermissions = newMember.voiceChannel.permissionOverwrites.find(everyoneRole);
         console.log(tempPermissions);
         var permissions = newMember.voiceChannel.permissionOverwrites.array();
         newMember.voiceChannel.clone(newMember.voiceChannel.name.substring(0, newMember.voiceChannel.name.lastIndexOf(' ')) + ' permissions').then(clone => {
