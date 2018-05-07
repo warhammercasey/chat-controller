@@ -91,6 +91,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                         if (newMember.guild.channels.find('name', config.channels[i] + ' ' + a.toString()) == null) {
                             console.log('4');
                             newMember.voiceChannel.clone(config.channels[i] + ' ' + a.toString()).then(clone => {
+                                console.log('Created channel: ' + clone.name);
                                 clone.setParent(newMember.voiceChannel.parent);
                                 clone.setUserLimit(newMember.voiceChannel.userLimit);
                                 for (i = 0; i < permissions.length; i++) {
