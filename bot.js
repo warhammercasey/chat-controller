@@ -98,7 +98,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
                                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                                 }
                                 clone.overwritePermissions(newMember.guild.roles.find('name', '@everyone'), { VIEW_CHANNEL: false });
-                            });
+                            }).catch(console.error);
                         }
                     }
                 }
