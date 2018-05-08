@@ -56,16 +56,35 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             }).catch(console.error);
         }
     } else if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
-        //var categoryChannels = []; //= oldMember.voiceChannel.parent.children.array();
-        for (i = 0; i < oldMember.guild.channels.array().length; i++) {
-            if (oldMember.guild.channels.array()[i].name.substring(0, oldMember.guild.channels.array()[i].name.lastIndexOf(" ")) == oldMember.voiceChannel.name.substring(0, oldMember.voiceChannel.name.lastIndexOf(' '))) {
-                oldMember.guild.channels.array()[i].parentID = oldMember.voiceChannel.parentID;
-            }
-        }
         var categoryChannels = oldMember.voiceChannel.parent.children.array();
+        var userChannel;
+        if (oldMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString()) == null) {
+            var permissions = categoryChannels[0].permissionOverwrites.array();
+            oldMember.guild.createChannel(categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString(), 'voice', permissions).then(clone => {
+                clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
+                clone.setUserLimit(categoryChannels[categoryChannels.length - 1].userLimit);
+                for (i = 0; i < permissions.length; i++) {
+                    clone.overwritePermissions(permissions[i].id, permissions[i]);
+                }
+            }).catch(console.error);
+            //var clone = oldMember.guild.channels.find('name', categoryChannels[categoryChannels.length - 1].name.substring(0, categoryChannels[categoryChannels.length - 1].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[categoryChannels.length - 1].name.split(" ").pop()) + 1).toString());
+
+            return;
+        } else if (oldMember.voiceChannel.name.split(" ").pop() == '1') {
+            var correctCategory = false;
+            while (!correctCategory) {
+                userChannel = oldMember.guild.channels.find('name', categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + '2');
+                if (userChannel.parentID == oldMember.voiceChannel.parentID) {
+                    correctCategory = true;
+                }
+            }
+            userChannel.setParent(categoryChannels[0].parent);
+            categoryChannels = userChannel.parent.children.array();
+        }
         var emptyChannels = [];
         for (i = 0; i < categoryChannels.length; i++) {
-            if (categoryChannels[i].members == undefined) {
+            console.log(categoryChannels[i].members);
+            if (categoryChannels[i].members == undefined || categoryChannels[i].members == null || categoryChannels[i].members.array().length == 0) {
                 emptyChannels.push(categoryChannels[i]);
             }
         }
