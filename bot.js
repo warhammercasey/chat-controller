@@ -19,7 +19,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             var permissions = categoryChannels[0].permissionOverwrites.array();
             newMember.guild.createChannel(categoryChannels[0].name.substring(0, categoryChannels[0].name.lastIndexOf(" ")) + ' ' + (parseInt(categoryChannels[0].name.split(" ").pop()) + 1).toString(), 'voice', permissions).then(clone => {
                 clone.setParent(categoryChannels[categoryChannels.length - 1].parent);
-                clone.userLimit = categoryChannels[categoryChannels.length - 1].parent.userLimit;
+                clone.userLimit = categoryChannels[categoryChannels.length - 1].userLimit;
                 for (i = 0; i < permissions.length; i++) {
                     clone.overwritePermissions(permissions[i].id, permissions[i]);
                 }
