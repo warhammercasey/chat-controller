@@ -9,6 +9,15 @@ client.on('ready', () => {
     console.log('Ready');
 });
 
+client.on('message', message => {
+	console.log("test");
+	if(message.member.user.bot){
+		return;  
+  	}
+	message.channel.send("Fuck you " + message.member.nickname)
+		.then(message => console.log(`Sent message: ${message.content}`))
+        	.catch(console.error);
+});
 
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
@@ -19,7 +28,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   	}
 	message.channel.send("Fuck you " + message.member.nickname)
 		.then(message => console.log(`Sent message: ${message.content}`))
-        .catch(console.error);
+        	.catch(console.error);
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
         var categoryChannels = newMember.voiceChannel.parent.children.array();
         var userChannel;
