@@ -12,6 +12,14 @@ client.on('ready', () => {
 
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
+    console.log("test");
+	if(message.member.user.bot){
+		
+		return;  
+  	}
+	message.channel.send("Fuck you " + message.member.nickname)
+		.then(message => console.log(`Sent message: ${message.content}`))
+        .catch(console.error);
     if (oldMember.voiceChannel == null && newMember.voiceChannel != null) {
         var categoryChannels = newMember.voiceChannel.parent.children.array();
         var userChannel;
