@@ -12,9 +12,9 @@ client.on('ready', () => {
 client.on('message', message => {
 	console.log("test");
 	if(message.member.user.bot){
-		return;  
+		return;
   	}
-	message.channel.send("Fuck you " + message.member.nickname)
+	message.channel.send("Fuck you " + message.member.displayName)
 		.then(message => console.log(`Sent message: ${message.content}`))
         	.catch(console.error);
 });
