@@ -17,6 +17,11 @@ client.on('message', message => {
 	message.channel.send("Fuck you " + message.member.displayName)
 		.then(message => console.log(`Sent message: ${message.content}`))
         	.catch(console.error);
+	if(message.content.includes("im")){
+		message.channel.send("Hi " + message.content.substring(message.content.indexOf('im') + 3) + ", im dad!")
+			.then(message => console.log(`Sent message: ${message.content}`))
+        		.catch(console.error);
+	}
 });
 
 
